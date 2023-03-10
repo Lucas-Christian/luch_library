@@ -1,0 +1,11 @@
+.home_description {
+  width: 250px;
+  text-align: justify;
+  color: black;
+}
+@media (min-width: 640px) {
+  .home_description {
+    width: 490px;
+    text-align: justify;
+  }
+}

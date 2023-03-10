@@ -1,0 +1,84 @@
+.book_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.book_data > img {
+  border-radius: 16px;
+}
+.book_data > table {
+  background-color: #261C1A;
+  border-radius: 16px;
+  height: auto;
+  width: 120px;
+}
+.book_data > table {
+  color: white;
+}
+.book_data > table > tbody > tr > th {
+  padding: 10px;
+  border-right: 1px solid #ADA0A2;
+}
+.book_data > table > tbody > tr > td {
+  padding: 10px;
+}
+.book_data > table > tbody > tr:nth-child(1) > th {
+  border-bottom: 1px solid #ADA0A2;
+}
+.book_data > table > tbody > tr:nth-child(1) > td {
+  border-bottom: 1px solid #ADA0A2;
+}
+.book_data > table > tbody > tr:nth-child(2) > th {
+  border-bottom: 1px solid #ADA0A2;
+}
+.book_data > table > tbody > tr:nth-child(2) > td {
+  border-bottom: 1px solid #ADA0A2;
+}
+.actions {
+  flex-direction: column;
+  display: flex;
+  gap: 20px;
+}
+.book_main {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    display: flex;
+    gap: 20px;
+  }
+  .book_data {
+    display: flex;
+    flex-direction: row;
+    justify-content: normal;
+    align-items: normal;
+    gap: 0;
+  }
+  .book_data > img {
+    border-radius: 16px 0 0 16px;
+  }
+  .book_data > table {
+    background-color: #261C1A;
+    border-radius: 0 16px 16px 0;
+    width: 120px;
+  }
+  .book_main {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+@media (min-width: 768px) {
+  .book_data > table {
+    width: 360px;
+  }
+  .book_data > table > tbody > tr > th {
+    padding: 5px;
+  }
+  .book_data > table > tbody > tr > td {
+    padding: 5px;
+  }
+}
