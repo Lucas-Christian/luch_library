@@ -1,5 +1,5 @@
 import { clearFilters, openFilter } from "../lib/functions/books/filter";
-import { BookData, booksData } from "../lib/constants/booksData";
+import { booksData } from "../lib/constants/booksData";
 import { loadCategories } from "../lib/functions/books/loadCategories";
 import { useEffect } from "react";
 import { Book } from "../components/book";
@@ -53,19 +53,19 @@ export default function Books() {
   );
   function renderBooks() {
     let renderedBooks = [];
-    booksData.forEach((bookData: BookData, index: number) => 
+    for(let bookData in booksData) {
       renderedBooks.push(
         <Book
-          categories={bookData.categories}
-          ariaLabel={bookData.ariaLabel}
-          key={`${bookData.id}${index}`}
-          href={`books/${bookData.id}`}
-          title={bookData.title}
-          alt={bookData.alt}
-          src={bookData.src}
+          categories={booksData[bookData].categories}
+          ariaLabel={booksData[bookData].ariaLabel}
+          key={`${booksData[bookData].id}${bookData}`}
+          href={`books/${booksData[bookData].id}`}
+          title={booksData[bookData].title}
+          alt={booksData[bookData].alt}
+          src={booksData[bookData].src}
         />
       )
-    );
+    }
     return renderedBooks;
   }
 }
