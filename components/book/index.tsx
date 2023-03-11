@@ -13,12 +13,14 @@ export function Book({ title, src, alt, categories, href, ariaLabel }: BookProps
   return (
     <div className={classes}>
       <a href={href} aria-label={ariaLabel}>
-        <img
-          width="210"
-          height="270"
-          src={src}
-          alt={alt}
-        />
+        <div className={styles.divBeforeImage}>
+          <img
+            width="210"
+            height="270"
+            src={src}
+            alt={alt}
+          />
+        </div>
         <p className={styles.book_title}>
           {title}
         </p>

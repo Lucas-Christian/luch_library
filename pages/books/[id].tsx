@@ -25,13 +25,18 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Book({ id }: { id: keyof typeof booksData; }) {
-  let bookData = booksData[id];
-  let authors = "";
-  bookData.authors.forEach((author: string) => {
-    authors += author+" ";
+  let bookData = booksData[id],
+  categoriesArray = bookData.categories.split(" "),
+  categoriesList = "",
+  authors = "",
+  title = `Luch Library · {bookData.title}`;
+
+  bookData.authors.forEach((author: string, index: number) => {
+    if(index === (bookData.authors.length - 1)) {
+      return authors += author;
+    }
+    authors += author+", ";
   });
-  let categoriesArray = bookData.categories.split(" ");
-  let categoriesList = "";
   categoriesArray.forEach((categorie: string, index: number) => {
     if(index === (categoriesArray.length - 1)) {
       return categoriesList += categories[categorie as keyof typeof categories].name;
@@ -42,21 +47,12 @@ export default function Book({ id }: { id: keyof typeof booksData; }) {
   return (
     <Layout>
       <Head>
-        <title>Luch Library · Livros</title>
-        <meta name="description" content="Aqui você pode ler o livro Interação Humano Computador." />      
+        <title>{title}</title>
+        <meta name="description" content={`Aqui você pode ler o livro ${bookData.title}`} />      
       </Head>
       <main className={styles.book_main}>
         <div className={styles.book_data}>
           <img
-            srcSet={`${bookData.src} ${bookData.width}px`}
-            sizes="
-              (min-width: 640px) 210px,
-              (min-width: 768px) 220px,
-              (min-width: 1024px) 230px,
-              (min-width: 1280px) 240px,
-              (min-width: 1536px) 250px,
-              200px
-              "
             width={bookData.width}
             height={bookData.height}
             src={bookData.src}
@@ -75,7 +71,7 @@ export default function Book({ id }: { id: keyof typeof booksData; }) {
               <tr>
                 <th scope="col">Autor</th>
                 <td>
-                  {bookData.authors}
+                  {authors}
                 </td>
               </tr>
               <tr>

@@ -104,6 +104,7 @@ svg {
 img {
   border-radius: 16px;
   object-fit: cover;
+  height: 100%;
 }
 .img_with_dialog {
   cursor: zoom-in;

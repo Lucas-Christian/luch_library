@@ -95,6 +95,9 @@
   text-align: center;
   color: black;
 }
+.divBeforeImage {
+  height: 300px;
+}
 
 @media (min-width: 640px) {
   .books {
