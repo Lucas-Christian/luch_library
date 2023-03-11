@@ -1,10 +1,10 @@
-import { clearFilters, openFilter } from "../lib/functions/books/filter";
-import { booksData } from "../lib/constants/booksData";
-import { loadCategories } from "../lib/functions/books/loadCategories";
+import { clearFilters, openFilter } from "../../lib/functions/books/filter";
+import { booksData } from "../../lib/constants/booksData";
+import { loadCategories } from "../../lib/functions/books/loadCategories";
 import { useEffect } from "react";
-import { Book } from "../components/book";
-import styles from "../styles/books.module.css";
-import Layout from "../components/layout";
+import { Book } from "../../components/book";
+import styles from "../../styles/books.module.css";
+import Layout from "../../components/layout";
 import Head from "next/head";
 
 export default function Books() {
