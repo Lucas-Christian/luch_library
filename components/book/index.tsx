@@ -1,9 +1,10 @@
 import styles from "../../styles/books.module.css";
+import { Title } from "../title";
 
 type BookProps = {
   categories: string;
   ariaLabel: string;
-  title: string;
+  title: string[];
   href: string;
   src: string;
   alt: string;
@@ -22,7 +23,7 @@ export function Book({ title, src, alt, categories, href, ariaLabel }: BookProps
           />
         </div>
         <p className={styles.book_title}>
-          {title}
+          {Title(title)}
         </p>
       </a>
     </div>

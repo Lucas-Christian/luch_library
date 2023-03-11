@@ -28,21 +28,15 @@ export default function Book({ id }: { id: keyof typeof booksData; }) {
   let bookData = booksData[id],
   categoriesArray = bookData.categories.split(" "),
   categoriesList = "",
-  authors = "",
-  title = `Luch Library · {bookData.title}`;
+  authors = bookData.authors.join(", "),
+  title = `Luch Library · ${bookData.title.join(", ")}`;
 
-  bookData.authors.forEach((author: string, index: number) => {
-    if(index === (bookData.authors.length - 1)) {
-      return authors += author;
-    }
-    authors += author+", ";
-  });
   categoriesArray.forEach((categorie: string, index: number) => {
     if(index === (categoriesArray.length - 1)) {
       return categoriesList += categories[categorie as keyof typeof categories].name;
     }
     categoriesList += categories[categorie as keyof typeof categories].name+", ";
-  })
+  });
   
   return (
     <Layout>
@@ -65,7 +59,7 @@ export default function Book({ id }: { id: keyof typeof booksData; }) {
               <tr>
                 <th scope="col">Título</th>
                 <td>
-                  {bookData.title}
+                  {bookData.title.join(", ")}
                 </td>
               </tr>
               <tr>

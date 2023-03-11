@@ -83,7 +83,6 @@
 }
 .book {
   width: 210px;
-  height: 310px;
 }
 .book > a {
   justify-content: center;

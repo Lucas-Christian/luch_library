@@ -54,6 +54,7 @@ export default function Books() {
   function renderBooks() {
     let renderedBooks = [];
     for(let bookData in booksData) {
+
       renderedBooks.push(
         <Book
           categories={booksData[bookData].categories}
