@@ -32,7 +32,7 @@ export default function Index() {
         <p className={styles.home_description}>
           Seja bem-vindo à minha biblioteca, aqui eu reúno os livros que eu pretendo ler, e caso algum se interesse por algum pode lê-lo.
         </p>
-        <a href="/luch_library/books/" className="button_redirection">
+        <a href="/books/" className="button_redirection">
           <button>
             <svg 
               xmlns="http://www.w3.org/2000/svg" fill="none" 
@@ -57,7 +57,7 @@ export default function Index() {
         "
         height={266.88}
         width={400}
-        src="/public/bookstore_medium.webp"
+        src="/images/bookstore_medium.webp"
         alt="Imagem de uma biblioteca" 
       />
     </Layout>
