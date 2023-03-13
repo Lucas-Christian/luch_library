@@ -1,7 +1,11 @@
 export const categories = {
-  software_development: "Desenvolvimento de Software",
-  software_engineering: "Engenharia de Software",
-  project_management: "Gestão de Projetos",
-  digital_design: "Design Digital",
-  business: "Negócios"
+  software_development: { 
+    name: "Desenvolvimento de Software", 
+    subcategories: {
+      software_engineering: { name: "Engenharia de Software", subcategories: undefined },
+      project_management: { name: "Gestão de Projetos", subcategories: undefined },
+      digital_design: { name: "Design Digital", subcategories: undefined }
+    }
+  },
+  business: { name: "Negócios", subcategories: undefined }
 }

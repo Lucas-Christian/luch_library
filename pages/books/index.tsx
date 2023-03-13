@@ -1,16 +1,19 @@
 import { categories } from "../../lib/constants/categories";
 import { booksData } from "../../lib/constants/booksData";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Book } from "../../components/book";
 import styles from "../../styles/books.module.css";
 import Layout from "../../components/layout";
 import Head from "next/head";
 
+type selectedCategoriesType = [ string[], Dispatch<SetStateAction<any[]>> ];
+
 export default function Books() {
-  let bookCategoriesToNotRender = useState([]);
-  let selectedCategories = useState([]);
-  let actualCategories = useState([]);
-  
+  const [selectedCategories, setSelectedCategories]: selectedCategoriesType = useState([]);
+
+  function addCategorie(category: string) {
+    setSelectedCategories(selectedCategories => [...selectedCategories, category]);
+  }
   function toggleFilter() {
     let filterPanel = document.getElementById("filter_panel");
     if(filterPanel.style.display === "none") {
@@ -23,6 +26,7 @@ export default function Books() {
     for(let book of books) {
       book.style.display = "block";
     }
+    setSelectedCategories([]);
   }
   return (
     <Layout>
@@ -67,42 +71,65 @@ export default function Books() {
   );
   function renderCategories() {
     let renderedCategories = [];
-    if(selectedCategories[0].length > 0) {
-      selectedCategories.map((selectedCategorie: any, index: number) => {
+    if(selectedCategories.length > 0) {
+      let categorieToRender;
+      selectedCategories.map((selectedCategorie: keyof typeof categories, index: number) => {
+        categorieToRender = categories[selectedCategorie as keyof typeof categories].subcategories;
         renderedCategories.push(
-          <p>Filtro {(index+1)}: {selectedCategorie}</p>
+          <p key={selectedCategorie+index}>Filtro {(index+1)}: {categorieToRender.name}</p>
         );
       });
-    }
-    if(actualCategories[0].length > 0) {
-      actualCategories.map((actualCategorie: any) => {
-        renderedCategories.push(
-          <p className={styles.category}>{categories[actualCategorie]}</p>
-        );
+
+      let categoriesToRender;
+      selectedCategories.map((selectedCategorie: string) => {
+        categoriesToRender = categories[selectedCategorie as keyof typeof categories].subcategories;
       });
+
+      if(categoriesToRender instanceof Object) {
+        for(let categorieToRender in categoriesToRender) {
+          renderedCategories.push(
+            <p className={styles.category} key={`${categorieToRender}paragraph`} onClick={() => addCategorie(categoriesToRender[categorieToRender])}>
+              {categoriesToRender[categorieToRender].name}
+            </p>
+          );
+        }
+      }
+    } else {
+      for(let category in categories) {
+        renderedCategories.push(  
+          <p className={styles.category} key={`${category}paragraph`} onClick={() => addCategorie(category)}>
+            {categories[category as keyof typeof categories].name}
+          </p>
+        );
+      }
     }
     return renderedCategories;
   }
   function renderBooks() {
     let renderedBooks = [];
     for(let bookData in booksData) {
-      if(bookCategoriesToNotRender[0].length > 0) {
-        bookCategoriesToNotRender.map((bookCategorieToNotRender: any) => {
-          if(booksData[bookData].categories.includes(bookCategorieToNotRender)) {
+      if(selectedCategories.length > 0) {
+        selectedCategories.map((selectedCategorie: any) => {
+          if(booksData[bookData].categories.includes(selectedCategorie)) {
+            renderBook();
           }
         });
+      } else {
+        renderBook();
       }
-      renderedBooks.push(
-        <Book
-          categories={booksData[bookData].categories}
-          ariaLabel={booksData[bookData].ariaLabel}
-          key={`${booksData[bookData].id}${bookData}`}
-          href={`books/${booksData[bookData].id}`}
-          title={booksData[bookData].title}
-          alt={booksData[bookData].alt}
-          src={booksData[bookData].src}
-        />
-      )
+      function renderBook() {
+        renderedBooks.push(
+          <Book
+            categories={booksData[bookData].categories}
+            ariaLabel={booksData[bookData].ariaLabel}
+            key={bookData}
+            href={`books/${booksData[bookData].id}`}
+            title={booksData[bookData].title}
+            alt={booksData[bookData].alt}
+            src={booksData[bookData].src}
+          />
+        );
+      }
     }
     return renderedBooks;
   }
