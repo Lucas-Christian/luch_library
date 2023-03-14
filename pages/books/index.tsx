@@ -72,28 +72,23 @@ export default function Books() {
   function renderCategories() {
     let renderedCategories = [];
     if(selectedCategories.length > 0) {
-      let categorieToRender;
-      selectedCategories.map((selectedCategorie: keyof typeof categories, index: number) => {
-        categorieToRender = categories[selectedCategorie as keyof typeof categories].subcategories;
+      let filteredCategory = categories[selectedCategories[0]];
+      selectedCategories.map((selectedCategory: string, index: number): any => {
         renderedCategories.push(
-          <p key={selectedCategorie+index}>Filtro {(index+1)}: {categorieToRender.name}</p>
+          <p key={`filter${selectedCategory}${index}`}>Filtro {(index+1)}: {filteredCategory.name}</p>
         );
-      });
-
-      let categoriesToRender;
-      selectedCategories.map((selectedCategorie: string) => {
-        categoriesToRender = categories[selectedCategorie as keyof typeof categories].subcategories;
-      });
-
-      if(categoriesToRender instanceof Object) {
-        for(let categorieToRender in categoriesToRender) {
-          renderedCategories.push(
-            <p className={styles.category} key={`${categorieToRender}paragraph`} onClick={() => addCategorie(categoriesToRender[categorieToRender])}>
-              {categoriesToRender[categorieToRender].name}
-            </p>
-          );
+        if(filteredCategory.subcategories === undefined) {  
+          filteredCategory.map((previousCategory: any) => {
+            renderedCategories.push(
+              <p className={styles.category} key={`${previousCategory}paragraph`} onClick={() => addCategorie(previousCategory)}>
+                {previousCategory.name}
+              </p>
+            );
+          });
+        } else {
+          filteredCategory = categories[selectedCategory].subcategories;
         }
-      }
+      });
     } else {
       for(let category in categories) {
         renderedCategories.push(  
